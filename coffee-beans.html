@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القائمة الرئيسية</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* تصميم دائرة اللوجو مضبوط */
+        .logo-circle {
+            width: 130px;
+            height: 130px;
+            background: rgba(255,255,255,0.10);
+            border-radius: 50%;
+            border: 4px solid rgba(255,255,255,0.30);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(6px);
+        }
+        .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            filter: drop-shadow(0 0 6px rgba(0,0,0,0.6));
+        }
+
+        .logo {
+            font-size: 44px;
+            font-weight: 900;
+        }
+    </style>
+    <script>
+        function go(page) {
+            window.location.href = page;
+        }
+    </script>
+</head>
+
+<body>
+
+<nav style="background: linear-gradient(to bottom, #3e2415 0%, #6d4225 60%, #a47245 100%); padding: 20px 0; border-radius: 16px;">
+    <div class="header" style="display:flex; justify-content:center; align-items:center; gap:18px;">
+        <div class="logo-circle">
+            <img src="images/IMG_1217.PNG" alt="Logo">
+        </div>
+        <div class="logo" style="color:white;">دار ضبـــــاط المـــــشــــاه</div>
+    </div>
+</nav>
+
+<section class="hero" style="margin-top:0; padding-top:10px;">
+    <h2>قائمة البن</h2>
+</section>
+
+<section class="categories">
+    <div class="cat-box" onclick="go('coffee.html')">
+        <div class="cat-info">
+            <h3>القهوة</h3>
+            <p class="count" id="count-coffee">عدد المنتجات: …</p>
+        </div>
+        <div class="cat-img">
+            <img src="images/coffee.svg" alt="قهوة">
+        </div>
+    </div>
+</section>
+
+<div class="back-btn" onclick="goBack()">الرجوع للخلف</div>
+
+<footer>جميع الحقوق محفوظة ©</footer>
+
+<script>
+function goBack() {
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        window.location.href = "index.html";
+    }
+}
+</script>
+
+<script>
+const categories = [
+    { file: "coffee.html", id: "count-coffee" }
+];
+
+categories.forEach(cat => {
+    fetch(cat.file)
+        .then(res => res.text())
+        .then(data => {
+            const count = (data.match(/class=\"product\"/g) || []).length;
+            document.getElementById(cat.id).innerText = `عدد المنتجات: ${count}`;
+        });
+});
+</script>
+
+</body>
+</html>
